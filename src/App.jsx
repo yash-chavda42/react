@@ -7,6 +7,9 @@ import About from './components/About.jsx'
 import { useFormState } from 'react-dom'
 import React, {useState} from 'react'
 import Alert from './components/Alert.jsx'
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function App() {
   const [count, setCount] = useState(0)
@@ -35,14 +38,17 @@ function App() {
     }
   }
   return (
-    <>
-      <Navbar title="yash" aboutText = "About Yash" mode={mode} toggleMode={toggleMode} />
-      <Alert alert= {alert}/>
+    <BrowserRouter>
+      <Navbar title="yash" aboutText="About Yash" mode={mode} toggleMode={toggleMode} />
+      <Alert alert={alert} />
+
       <div className="container my-3">
-        <TextForm showAlert={showAlert} heading="Enter Text" mode={mode} />
-        {/* <About/> */}
+        <Routes>
+          <Route exact path="/" element={<TextForm showAlert={showAlert} heading="Enter Text" mode={mode} />} />
+          <Route exact path="/about" element={<About />} />
+        </Routes>
       </div>
-    </>
+    </BrowserRouter>
   )
 }
 
